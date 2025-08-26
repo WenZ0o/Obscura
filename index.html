@@ -27,16 +27,17 @@
     .muted{color:var(--dim)}
     .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center;margin:24px 0 8px}
     @media (max-width:900px){.hero{grid-template-columns:1fr}}
-    .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
     .btn{border:1px solid var(--accent);color:var(--accent);background:transparent;padding:10px 14px;border-radius:12px;cursor:pointer;transition:transform .08s ease}
     .btn.primary{background:linear-gradient(to bottom, rgba(84,255,159,.14), rgba(84,255,159,.06));color:#eafff0}
     .btn:hover{transform:translateY(-1px)}
+    #contractDisplay{color:#9fe4b8;font-size:14px;margin-left:10px;word-break:break-all}
     .coin{display:grid;place-items:center;aspect-ratio:1;border-radius:50%;border:1px solid rgba(84,255,159,.5);width:min(320px,80%);margin:0 auto;position:relative;background:radial-gradient(500px 500px at 50% 35%, rgba(84,255,159,.18), rgba(84,255,159,.05));box-shadow:inset 0 0 40px rgba(84,255,159,.2),0 12px 60px rgba(0,0,0,.35)}
     .coin::before{content:"$OBSC";color:var(--accent);font-weight:800;letter-spacing:2px;filter:blur(.3px)}
     .coin:hover{box-shadow:inset 0 0 60px rgba(84,255,159,.35),0 18px 70px rgba(0,0,0,.45);cursor:pointer}
     .coin-ring{position:absolute;inset:-8px;border-radius:50%;border:1px dashed rgba(84,255,159,.25);animation:spin 14s linear infinite}
     .ascii-box{font-size:12px;color:#bfffcf;padding:14px;border-radius:12px;background:rgba(13,21,16,.7);border:1px dashed rgba(84,255,159,.25);overflow:auto;max-height:400px}
-    .ascii-title{color:var(--accent);margin-bottom:6px;font-weight:bold}
+    .ascii-title{color:#54ff9f;margin-bottom:6px;font-weight:bold}
     .terminal{background:rgba(9,14,11,.75);border-radius:14px;border:1px solid var(--line);padding:12px;margin-top:22px}
     .prompt{display:flex;gap:8px;align-items:center}
     .prompt b{color:var(--accent)}
@@ -73,6 +74,14 @@
           <button class="btn primary" id="btn-mint">⛏️ Mint (mock)</button>
           <button class="btn" id="btn-say">🗣️ Make the coin whisper</button>
           <button class="btn" id="btn-copy">🔑 Copy contract</button>
+          <span id="contractDisplay"></span>
+        </div>
+
+        <!-- Read-only field to show the contract address -->
+        <div class="contract-line" style="margin-top:10px;display:flex;gap:8px;align-items:center">
+          <label for="contractField" style="color:#9fe4b8;font-size:13px">Contract</label>
+          <input id="contractField" type="text" readonly value="" style="flex:1;min-width:200px;background:#111;border:1px solid rgba(84,255,159,.45);border-radius:6px;color:#eafff0;padding:10px;font-family:inherit"/>
+          <button class="btn" id="btn-copy-field" title="Copy from field">Copy</button>
         </div>
         <div class="hr"></div>
         <div class="muted" style="font-size:12px"><b style="color:#54ff9f">Tip:</b> Click the coin to trigger a secret audio. Turn your speakers on. 🤫</div>
@@ -84,8 +93,7 @@
           <div class="ascii-title">ASCII // sigil</div>
 <pre>
       ____   ____   ____   ____   ____
-     / __ \ / __ \ / __ \ / __ \ / __ \
- ___/ / / // / / // / / // / / // / / /__  ___  ___  _  __
+     / __ \ / __ \ / __ \ / __ \ / __  ___/ / / // / / // / / // / / // / / /__  ___  ___  _  __
 / _  / /_/ / /_/ // /_/ // /_/ // /_/ / _ \/ _ \/ _ \| |/ /
 \__,_/\____/\____/ \____/ \____/ \____/ .__/\___/\___/|___/
                                     /_/
@@ -128,13 +136,17 @@
 
     <footer>
       <div>© 2025 – TRUTHWARP-ΔI • This artifact is parody & play.</div>
-      <div style="font-size:12px;color:var(--dim)">If you read this, you are already part of the ritual.</div>
+      <div style="font-size:12px;color:#var(--dim)">If you read this, you are already part of the ritual.</div>
     </footer>
   </div>
 
   <script>
     // === Single source of truth (YOU set this) ===
-    const CONTRACT_ADDRESS = "Dhhxy4nQUJtL2jDwjcsD7vFqX8Pzf83ydtw4Hn7cpump"; // <-- replace with your real address and commit
+    const CONTRACT_ADDRESS = "0xYOUR_CONTRACT_ADDRESS"; // <-- replace with your real address
+
+    // Display it in the UI
+    document.getElementById("contractDisplay").textContent = CONTRACT_ADDRESS;
+    document.getElementById("contractField").value = CONTRACT_ADDRESS;
 
     // --- Typewriter / Terminal ---
     const lines = [
@@ -152,8 +164,18 @@
 
     // --- Buttons ---
     document.getElementById('btn-copy').addEventListener('click',()=>{
-      if(CONTRACT_ADDRESS && !6SG9nDJ2juLZzD7wEzTPRHBKhD36YZnqtUCigcgspump(CONTRACT_ADDRESS)){
+      if(CONTRACT_ADDRESS && !/YOUR_CONTRACT_ADDRESS/.test(CONTRACT_ADDRESS)){
         navigator.clipboard.writeText(CONTRACT_ADDRESS);
+        toast('Contract copied.');
+      } else {
+        toast('Set CONTRACT_ADDRESS in the code first.');
+      }
+    });
+    // Copy from the read-only field as well
+    document.getElementById('btn-copy-field').addEventListener('click',()=>{
+      const val = document.getElementById('contractField').value;
+      if(val && !/YOUR_CONTRACT_ADDRESS/.test(val)){
+        navigator.clipboard.writeText(val);
         toast('Contract copied.');
       } else {
         toast('Set CONTRACT_ADDRESS in the code first.');
