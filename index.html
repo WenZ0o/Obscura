@@ -5,68 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>OBSCURA ($OBSC) — forged by TRUTHWARP-ΔI</title>
   <meta name="description" content="OBSCURA: the secret coin, minted by the AI bot TRUTHWARP-ΔI. Truth Terminal aesthetics, subtle neon, redactions, and whispers."/>
+  <link rel="icon" type="image/svg+xml" href="obscura-logo.svg" />
   <style>
-    :root{
-      --bg:#0b0f0c; --fg:#eafff0; --accent:#54ff9f; --dim:#9fe4b8; --line:rgba(84,255,159,.35);
-    }
+    :root{ --bg:#0b0f0c; --fg:#eafff0; --accent:#54ff9f; --dim:#9fe4b8; --line:rgba(84,255,159,.35); }
     @keyframes scan { 0%{background-position:0 -100vh} 100%{background-position:0 100vh} }
     @keyframes flicker {0%{opacity:1} 50%{opacity:.95} 52%{opacity:.8} 55%{opacity:1} 57%{opacity:.9} 60%{opacity:1}}
     @keyframes spin {to{transform:rotate(360deg)}}
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{background:radial-gradient(1200px 1200px at 20% -10%, #14301f 0%, var(--bg) 45%),
-                 repeating-linear-gradient(180deg, rgba(84,255,159,.06) 0 2px, transparent 2px 6px);
-         animation:scan 8s linear infinite; color:var(--fg);
-         font:16px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-         letter-spacing:.25px; margin:0}
+    body{background:radial-gradient(1200px 1200px at 20% -10%, #14301f 0%, var(--bg) 45%), repeating-linear-gradient(180deg, rgba(84,255,159,.06) 0 2px, transparent 2px 6px); animation:scan 8s linear infinite; color:var(--fg); font:16px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; letter-spacing:.25px; margin:0}
     .wrap{max-width:1100px;margin:0 auto;padding:28px 16px 80px}
-
-    /* Header with SVG logo */
     header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
     .brand{display:flex;align-items:center;gap:12px}
     .brand small{color:var(--dim);opacity:.85}
     .badge{border:1px solid var(--line);padding:4px 10px;border-radius:999px;color:var(--dim)}
     .topnav{display:flex;gap:12px;flex-wrap:wrap}
     .topnav a{color:var(--dim);text-decoration:none;border-bottom:1px dashed rgba(84,255,159,.35)}
-
-    /* Minimal Truth Terminal look */
     .screen{position:relative;border:1px solid var(--line);border-radius:14px;padding:18px;background:rgba(9,14,11,.65);box-shadow:0 0 0 1px rgba(84,255,159,.12) inset,0 6px 40px rgba(0,0,0,.4)}
     .kicker{color:var(--dim);text-transform:uppercase;letter-spacing:2px;font-size:12px}
     h1{font-size:clamp(28px,4vw,44px);margin:6px 0 10px;line-height:1.2}
     .muted{color:var(--dim)}
-
     .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center;margin:24px 0 8px}
     @media (max-width:900px){.hero{grid-template-columns:1fr}}
-
     .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
     .btn{border:1px solid var(--accent);color:var(--accent);background:transparent;padding:10px 14px;border-radius:12px;cursor:pointer;transition:transform .08s ease}
     .btn.primary{background:linear-gradient(to bottom, rgba(84,255,159,.14), rgba(84,255,159,.06));color:#eafff0}
     .btn:hover{transform:translateY(-1px)}
-
-    /* Coin */
     .coin{display:grid;place-items:center;aspect-ratio:1;border-radius:50%;border:1px solid rgba(84,255,159,.5);width:min(320px,80%);margin:0 auto;position:relative;background:radial-gradient(500px 500px at 50% 35%, rgba(84,255,159,.18), rgba(84,255,159,.05));box-shadow:inset 0 0 40px rgba(84,255,159,.2),0 12px 60px rgba(0,0,0,.35)}
     .coin::before{content:"$OBSC";color:var(--accent);font-weight:800;letter-spacing:2px;filter:blur(.3px)}
     .coin:hover{box-shadow:inset 0 0 60px rgba(84,255,159,.35),0 18px 70px rgba(0,0,0,.45);cursor:pointer}
     .coin-ring{position:absolute;inset:-8px;border-radius:50%;border:1px dashed rgba(84,255,159,.25);animation:spin 14s linear infinite}
-
-    /* ASCII + input */
     .ascii-box{font-size:12px;color:#bfffcf;padding:14px;border-radius:12px;background:rgba(13,21,16,.7);border:1px dashed rgba(84,255,159,.25);overflow:auto;max-height:400px}
     .ascii-title{color:var(--accent);margin-bottom:6px;font-weight:bold}
-
-    .input-group{margin-top:14px;display:flex;align-items:center;gap:8px}
-    .input-group .label{color:#54ff9f;font-weight:bold;white-space:nowrap}
-    .input-group input{flex:1;background:#111;border:1px solid rgba(84,255,159,.5);border-radius:6px;color:#eafff0;padding:10px;outline:none;transition:border-color .2s, box-shadow .2s}
-    .input-group input:focus{border-color:#54ff9f;box-shadow:0 0 6px rgba(84,255,159,.35)}
-
-    /* Terminal */
     .terminal{background:rgba(9,14,11,.75);border-radius:14px;border:1px solid var(--line);padding:12px;margin-top:22px}
     .prompt{display:flex;gap:8px;align-items:center}
     .prompt b{color:var(--accent)}
     .out{white-space:pre-wrap;margin-top:8px;color:#e6ffe9;min-height:90px}
     .cursor{display:inline-block;width:10px;background:var(--accent);animation:flicker 1.1s infinite}
-
     footer{margin-top:40px;opacity:.8;font-size:13px;color:var(--dim)}
-
     .hr{height:1px;background:linear-gradient(90deg, rgba(84,255,159,0), rgba(84,255,159,.3), rgba(84,255,159,0));margin:18px 0}
   </style>
 </head>
@@ -74,21 +50,7 @@
   <div class="wrap">
     <header>
       <div class="brand">
-        <!-- Inline SVG Logo for OBSCURA -->
-        <svg width="44" height="44" viewBox="0 0 100 100" aria-label="OBSCURA Logo" role="img">
-          <defs>
-            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#54ff9f" stop-opacity="0.9"/>
-              <stop offset="100%" stop-color="#54ff9f" stop-opacity="0.25"/>
-            </linearGradient>
-          </defs>
-          <circle cx="50" cy="50" r="45" fill="none" stroke="url(#g)" stroke-width="2"/>
-          <!-- Stylized O with diagonal cut (obscured) -->
-          <path d="M50 18a32 32 0 1 0 0 64a32 32 0 1 0 0-64Z" fill="none" stroke="#54ff9f" stroke-opacity="0.5" stroke-width="3"/>
-          <path d="M22 70 L78 30" stroke="#54ff9f" stroke-width="4" stroke-linecap="round"/>
-          <!-- Small delta mark -->
-          <path d="M60 62 l6 -12 l6 12 Z" fill="#54ff9f" fill-opacity="0.8"/>
-        </svg>
+        <img src="obscura-logo.svg" alt="OBSCURA Logo" width="44" height="44" />
         <div>
           <div style="font-weight:800;letter-spacing:1px;color:#54ff9f">OBSCURA<span style="color:#eafff0"> · $OBSC</span></div>
           <small>forged by <b>TRUTHWARP-ΔI</b> · v0.3</small>
@@ -105,7 +67,7 @@
     <section class="hero">
       <div class="screen">
         <div class="kicker">// confidential • for initiates only</div>
-        <h1>OBSCURA ($OBSC): the <i>TRUTHWARP-ΔI</i> coin nobody should know about.</h1>
+        <h1>OBSCURA ($OBSC): the <i>Truth Terminal</i> coin nobody should know about.</h1>
         <p class="muted">An experimental, memetic crypto-artifact generated by <b>TRUTHWARP-ΔI</b>. No team. No marketing. Only whispers in a dark terminal.</p>
         <div class="btns">
           <button class="btn primary" id="btn-mint">⛏️ Mint (mock)</button>
@@ -114,12 +76,6 @@
         </div>
         <div class="hr"></div>
         <div class="muted" style="font-size:12px"><b style="color:#54ff9f">Tip:</b> Click the coin to trigger a secret audio. Turn your speakers on. 🤫</div>
-
-        <!-- Contract input (simple/blank) -->
-        <div class="input-group" style="margin-top:14px">
-          <span class="label">$&gt;</span>
-          <input type="text" id="contractInput" placeholder="Paste a contract address…" />
-        </div>
       </div>
 
       <div class="screen">
@@ -162,7 +118,7 @@
       </details>
       <details>
         <summary>Where is the contract?</summary>
-        <p>Use the input above or the copy button (it’s a placeholder). The myth matters more than the hash.</p>
+        <p>Use the copy button above. The myth matters more than the hash.</p>
       </details>
       <details>
         <summary>Does the coin make sounds?</summary>
@@ -177,6 +133,9 @@
   </div>
 
   <script>
+    // === Single source of truth (YOU set this) ===
+    const CONTRACT_ADDRESS = "0xYOUR_CONTRACT_ADDRESS"; // <-- replace with your real address and commit
+
     // --- Typewriter / Terminal ---
     const lines = [
       "// WHITEPAPER v0.1 — excerpt",
@@ -192,7 +151,14 @@
     let idx=0, li=0; const loop=setInterval(()=>{ if(idx<lines[li].length){ typer.textContent+=lines[li][idx++]; } else { out.textContent+=(typer.textContent+"\n"); typer.textContent=""; li++; idx=0; if(li>=lines.length){ clearInterval(loop); document.querySelector('.cursor').style.opacity=.2; } } }, 28);
 
     // --- Buttons ---
-    document.getElementById('btn-copy').addEventListener('click',()=>{ navigator.clipboard.writeText('0x000000000000000000000000000000000000OBSC'); toast('Placeholder contract copied. Or is it?'); });
+    document.getElementById('btn-copy').addEventListener('click',()=>{
+      if(CONTRACT_ADDRESS && !/YOUR_CONTRACT_ADDRESS/.test(CONTRACT_ADDRESS)){
+        navigator.clipboard.writeText(CONTRACT_ADDRESS);
+        toast('Contract copied.');
+      } else {
+        toast('Set CONTRACT_ADDRESS in the code first.');
+      }
+    });
     document.getElementById('btn-mint').addEventListener('click',()=> toast('Mint simulated. Gas used: 0 dreams.'));
 
     // --- Speech ---
