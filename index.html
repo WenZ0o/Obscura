@@ -152,7 +152,7 @@
 
     // --- Buttons ---
     document.getElementById('btn-copy').addEventListener('click',()=>{
-      if(CONTRACT_ADDRESS && !/YOUR_CONTRACT_ADDRESS/.test(CONTRACT_ADDRESS)){
+      if(CONTRACT_ADDRESS && !6SG9nDJ2juLZzD7wEzTPRHBKhD36YZnqtUCigcgspump(CONTRACT_ADDRESS)){
         navigator.clipboard.writeText(CONTRACT_ADDRESS);
         toast('Contract copied.');
       } else {
